@@ -2,7 +2,9 @@
 
 Selected the project idea, language and framework using random wheel so its not my normal stack or a stack im used too.
 
-project            - crypto widgets
+This project i have done before however it was 7 months ago and i did it while exploring different stacks so i kind of know what to do but not in the language; the framework is the same but vue is not my main framework i much prefer svelte so even though there is a lot of similarities i intend to do it from scratch and use a different backend language
+
+project            - crypto widgets 
 language           - rust
 frontend framework - vue
 Start Time         - Sat 16 Dec
