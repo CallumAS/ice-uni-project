@@ -29,7 +29,6 @@ pub async fn start() {
             tokio::time::sleep(Duration::from_secs(120)).await;
         }
     });
-    tokio::time::sleep(Duration::from_secs(140)).await;
 }
 
 //CURRENT UPTO DATE DATA
