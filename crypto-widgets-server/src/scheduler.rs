@@ -1,46 +1,77 @@
-use crate::coinmarketcap::{self, Get_request, Root};
+use crate::coinmarketcap::{get_request, Root};
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
-use std::{
-    collections::HashMap,
-    sync::{Arc, Mutex},
-    time::Duration,
-};
+use std::io::Write;
+use std::{collections::HashMap, fs::File, sync::Arc, time::Duration};
+use tokio::sync::Mutex as TokioMutex;
 #[derive(Serialize, Deserialize, Clone)]
-
 pub struct CoinData {
+    pub id: i64,
     pub symbol: String,
     pub price: f64,
     pub daily_gains: f64,
-    pub coin_type: u8,
     pub marketcap: f64,
 }
 
-//CURRENT UPTO DATE DATA
-lazy_static! {
-    static ref COINS: Arc<Mutex<HashMap<String, CoinData>>> = Arc::new(Mutex::new(HashMap::new()));
-}
-
-pub async fn Start() {
-    // Clone the Arc for the background task
-
+pub async fn start() {
     tokio::spawn(async move {
         loop {
-            // Simulate adding items to the list
+            // adding items to the list
             {
-                match Get_request().await {
-                    Ok(data) => Format(&data),
+                match get_request().await {
+                    Ok(data) => format(&data).await,
                     Err(e) => eprintln!("Error: {:?}", e),
                 }
             }
+            dump_coins_as_json("./coins-dump.json").await;
 
-            // Simulate some work
+            // wait
             tokio::time::sleep(Duration::from_secs(120)).await;
         }
     });
     tokio::time::sleep(Duration::from_secs(140)).await;
 }
 
-pub fn Format(data: &Root) {
-    println!("got data")
+//CURRENT UPTO DATE DATA
+
+lazy_static! {
+    static ref COINS: Arc<TokioMutex<HashMap<String, CoinData>>> =
+        Arc::new(TokioMutex::new(HashMap::new()));
+}
+
+pub async fn format(data: &Root) {
+    let thread_shared_list = COINS.clone();
+    let mut coins = thread_shared_list.lock().await;
+    for ele in &data.data.crypto_currency_list {
+        for quotes in &ele.quotes {
+            if quotes.name == "USD" {
+                let coin_data = CoinData {
+                    id: ele.id,
+                    symbol: ele.symbol.clone(),
+                    price: quotes.price,
+                    daily_gains: quotes.percent_change24h,
+                    marketcap: quotes.market_cap,
+                };
+
+                coins.insert(ele.name.clone(), coin_data);
+                break;
+            }
+        }
+    }
+}
+
+async fn dump_coins_as_json(filename: &str) {
+    println!("saving data");
+
+    let thread_shared_list = COINS.clone();
+    let coins = thread_shared_list.lock().await;
+
+    // Serialize the coins hashmap to JSON
+    let json_data = serde_json::to_string_pretty(&*coins).unwrap();
+
+    // Write JSON data to a file
+    let mut file = File::create(filename).expect("Failed to create file");
+    file.write_all(json_data.as_bytes())
+        .expect("Failed to write to file");
+    println!("saved data");
 }

@@ -6,3 +6,7 @@ created a rust project for the server nothing big completed yet.
 
 Breakfast Break - Sat 17 Dec 6.00 - 10.50
 Started to build the backend to start being able to build the widget & site.
+
+
+Music & Programming Session - Sat 17 Dec 12.30 - 
+enjoy: https://youtu.be/NQyT2RDlW8I?list=RDNQyT2RDlW8I
