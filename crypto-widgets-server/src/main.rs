@@ -1,3 +1,7 @@
-fn main() {
-    println!("Hello, world!");
+mod coinmarketcap;
+mod scheduler;
+
+#[tokio::main]
+async fn main() {
+    scheduler::Start().await;
 }
