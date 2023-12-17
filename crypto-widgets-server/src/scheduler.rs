@@ -35,7 +35,7 @@ pub async fn start() {
 //CURRENT UPTO DATE DATA
 
 lazy_static! {
-    static ref COINS: Arc<TokioMutex<HashMap<String, CoinData>>> =
+    pub static ref COINS: Arc<TokioMutex<HashMap<String, CoinData>>> =
         Arc::new(TokioMutex::new(HashMap::new()));
 }
 
