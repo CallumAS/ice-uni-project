@@ -9,13 +9,11 @@ use rocket::tokio::time::{self, Duration};
 use rocket::{get, Build, Rocket, State};
 use rocket::{routes, Request};
 use rocket::{FromForm, Response};
+use std::sync::Mutex;
+use std::vec;
 use std::{collections::HashMap, fs::File, sync::Arc};
 pub struct CORS;
 
-#[derive(FromForm)]
-struct Options<'r> {
-    name: Option<&'r str>,
-}
 #[rocket::async_trait]
 impl Fairing for CORS {
     fn info(&self) -> Info {
@@ -32,7 +30,7 @@ impl Fairing for CORS {
             "POST, GET, PATCH, OPTIONS",
         ));
         response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
-        response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+        response.set_header(Header::new("Access-Control-Allow-Credentials", "false"));
     }
 }
 
@@ -42,24 +40,61 @@ fn GetImage(coin: &str, size: u8) -> String {
     format!("👋 Hello, {} year old named {}!", coin, size)
 }
 
-#[get("/")]
-async fn list_coins() -> Json<HashMap<String, scheduler::CoinData>> {
+#[get("/?<opt..>")]
+async fn list_coins(opt: Options<'_>) -> Json<HashMap<String, scheduler::CoinData>> {
+    let mut new_array_symbols: Vec<String> = Vec::new();
+
+    if let Some(symbols) = opt.symbols {
+        new_array_symbols = symbols.split(',').map(String::from).collect();
+        println!("Received symbols: {}", symbols);
+    } else {
+        println!("No symbols parameter provided");
+    }
+
     let list = scheduler::COINS.lock().await;
     let data: HashMap<String, scheduler::CoinData> = list.clone();
-    Json(data)
+
+    let filtered_list: HashMap<String, scheduler::CoinData> = if new_array_symbols.is_empty() {
+        data
+    } else {
+        data.into_iter()
+            .filter(|(key, _)| new_array_symbols.contains(&key))
+            .collect()
+    };
+
+    Json(filtered_list)
 }
+#[derive(FromForm)]
+struct Options<'r> {
+    symbols: Option<&'r str>,
+}
+#[get("/sse?<opt..>", format = "text/event-stream", rank = 1)]
+fn get_coins_sse(opt: Options<'_>) -> EventStream![] {
+    let mut new_array_symbols: Vec<String> = Vec::new();
 
-#[get("/?<opt..>", format = "text/event-stream", rank = 1)]
-fn getCoinsSSE(opt: Options<'_>) -> EventStream![] {
+    if let Some(symbols) = opt.symbols {
+        new_array_symbols = symbols.split(',').map(String::from).collect();
+        println!("Received symbols: {}", symbols);
+    } else {
+        println!("No symbols parameter provided");
+    }
+
     let stream = EventStream! {
-        let mut interval = time::interval(Duration::from_secs(1));
+        let mut interval = time::interval(Duration::from_secs(10));
 
-        while true {
+        loop {
+            let coin_data = scheduler::COINS.lock().await.clone();
+
+            let filtered_list: HashMap<String, scheduler::CoinData> = if new_array_symbols.is_empty() {
+                coin_data
+            } else {
+                coin_data.into_iter()
+                    .filter(|(key, _)| new_array_symbols.contains(&key))
+                    .collect()
+            };
+            yield Event::json(&filtered_list).event("message");
+
             interval.tick().await;
-            let list = scheduler::COINS.lock().await;
-            let data: HashMap<String, scheduler::CoinData> = list.clone();
-
-            yield Event::json(&data).event("message");
         }
     };
 
@@ -69,7 +104,5 @@ fn getCoinsSSE(opt: Options<'_>) -> EventStream![] {
 pub fn rocket() -> Rocket<Build> {
     rocket::build()
         .attach(CORS) //middleware
-        .mount("/", routes![list_coins]) //get all coins or specific
-        .mount("/image", routes![GetImage]) //get coin image
-        .mount("/sse", routes![getCoinsSSE]) //get SSE event of all coins
+        .mount("/", routes![list_coins, GetImage, get_coins_sse]) //get all coins or specific
 }

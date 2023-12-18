@@ -5,13 +5,11 @@ class CoinsWidget extends HTMLElement {
 
         this.coins = [];
 
-        this.evtSource = new EventSource("//api.example.com/ssedemo.php", {
-            withCredentials: true,
+        this.evtSource = new EventSource("http://127.0.0.1:8000/sse/?symbols=Bitcoin", {
         });
         this.evtSource.onmessage = (event) => {
-            const newElement = document.createElement("li");
-            const eventList = document.getElementById("list");
             const data = JSON.parse(event.data)
+            console.log(event.data);
 
             //store coins
             this.coins = data;
