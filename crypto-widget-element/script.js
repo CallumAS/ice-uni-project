@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:8000/public/";
+const baseURL = "http://localhost:8000";
 class CoinInfo extends HTMLElement {
     constructor() {
         super();
@@ -15,7 +15,7 @@ class CoinInfo extends HTMLElement {
         this.container.appendChild(this.name);
         this.logo = document.createElement("img");
         this.logo.className = "coin-logo";
-        this.logo.src = baseURL + this.coinInfo.id + ".png";
+        this.logo.src = baseURL + "/public/" + this.coinInfo.id + ".png";
         this.container.appendChild(this.logo);
 
         this.price = document.createElement("a");
@@ -51,7 +51,7 @@ class CoinsWidget extends HTMLElement {
         this.coinContainer.className = "coin-container";
         this.appendChild(this.coinContainer);
 
-        this.evtSource = new EventSource("http://127.0.0.1:8000/sse/?symbols=" + this.coins);
+        this.evtSource = new EventSource(baseURL + "/sse/?symbols=" + this.coins);
 
         this.evtSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
