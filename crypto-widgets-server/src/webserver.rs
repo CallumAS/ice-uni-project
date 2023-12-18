@@ -1,5 +1,6 @@
 use crate::scheduler;
 use rocket::fairing::{AdHoc, Fairing, Info, Kind};
+use rocket::fs::FileServer;
 use rocket::http::Header;
 use rocket::response::stream::Event;
 use rocket::response::stream::EventStream;
@@ -12,6 +13,7 @@ use rocket::{FromForm, Response};
 use std::sync::Mutex;
 use std::vec;
 use std::{collections::HashMap, fs::File, sync::Arc};
+
 pub struct CORS;
 
 #[rocket::async_trait]
@@ -104,5 +106,6 @@ fn get_coins_sse(opt: Options<'_>) -> EventStream![] {
 pub fn rocket() -> Rocket<Build> {
     rocket::build()
         .attach(CORS) //middleware
-        .mount("/", routes![list_coins, GetImage, get_coins_sse]) //get all coins or specific
+        .mount("/public", FileServer::from("./images"))
+        .mount("/", routes![list_coins, get_coins_sse]) //get all coins or specific
 }

@@ -20,3 +20,6 @@ Widget - Sat 18th Dec 13.00-14.00
 Got the Widget working kind of
 ![Widget!](https://i.imgur.com/7aAB4cK.png)
 
+Images - Sat 18th Dec 14.00-15.30
+added image downloading as a function and added a static route to view images.
+

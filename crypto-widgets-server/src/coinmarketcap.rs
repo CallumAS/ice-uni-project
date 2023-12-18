@@ -1,7 +1,47 @@
+use std::{fs::File, io::Write};
+
 use reqwest::header::{HeaderMap, HeaderValue, USER_AGENT};
 use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing?start=1&limit=99999999&sortBy=rank&sortType=desc&convert=USD,BTC,ETH&cryptoType=all&tagType=all&audited=false&aux=ath,atl,high24h,low24h,num_market_pairs,cmc_rank,date_added,max_supply,circulating_supply,total_supply,volume_7d,volume_30d,self_reported_circulating_supply,self_reported_market_cap";
+
+pub async fn download_image(id: &str) -> Result<(), Box<dyn std::error::Error>> {
+    // URL of the image to download
+    let mut owned_string: String =
+        "https://s2.coinmarketcap.com/static/img/coins/128x128/".to_owned();
+    let png: &str = ".png";
+
+    owned_string.push_str(id);
+    owned_string.push_str(png);
+    // Make an HTTP GET request to the URL
+    let response = reqwest::get(owned_string).await?;
+
+    // Check if the request was successful
+    if response.status() == reqwest::StatusCode::OK {
+        // Create a directory (if it doesn't exist) to store the downloaded images
+        let directory = "images";
+        std::fs::create_dir_all(directory)?;
+
+        // Get the filename from the URL
+        let filename = format!("{}/{}.png", directory, id);
+
+        // Create a file to save the image
+        let mut file = File::create(&filename)?;
+
+        // Read the response body and save it to the file
+        let bytes = response.bytes().await?;
+        file.write_all(&bytes)?;
+
+        println!("Image downloaded to: {}", filename);
+    } else {
+        eprintln!(
+            "Failed to download image. Status code: {}",
+            response.status()
+        );
+    }
+
+    Ok(())
+}
 
 pub async fn get_request() -> Result<Root, reqwest::Error> {
     let client = reqwest::ClientBuilder::new()
