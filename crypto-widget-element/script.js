@@ -1,3 +1,4 @@
+const baseURL = "http://localhost:8000/public/";
 class CoinInfo extends HTMLElement {
     constructor() {
         super();
@@ -14,7 +15,7 @@ class CoinInfo extends HTMLElement {
         this.container.appendChild(this.name);
         this.logo = document.createElement("img");
         this.logo.className = "coin-logo";
-        this.logo.src = "http://www.boredpanda.com/blog/wp-content/uploads/2023/09/hilarious-work-memes_wide-WideImage_3-2-64f6c5730150d.jpg";
+        this.logo.src = baseURL + this.coinInfo.id + ".png";
         this.container.appendChild(this.logo);
 
         this.price = document.createElement("a");
