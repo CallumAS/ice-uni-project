@@ -15,3 +15,8 @@ got the web server working bit lazy :(
 
 Wake & Code - Sat 18th Dec 8:00-8:50
 Got SSE working & Filtering; going to make some breakfast and start working on the widget to implmenent on the site.
+
+Widget - Sat 18th Dec 13.00-14.00
+Got the Widget working kind of
+![Widget!](https://i.imgur.com/7aAB4cK.png)
+
