@@ -6,6 +6,7 @@ use std::io::Write;
 use std::path::Path;
 use std::{collections::HashMap, fs::File, sync::Arc, time::Duration};
 use tokio::sync::Mutex as TokioMutex;
+use tokio::task;
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CoinData {
     pub id: i64,
@@ -50,7 +51,9 @@ pub async fn format(data: &Root) {
                 if fs::metadata(Path::new("./images/").join(format!("{}.png", id_str))).is_ok()
                     == false
                 {
-                    let err = coinmarketcap::download_image(&id_str).await;
+                    task::spawn(async move {
+                        coinmarketcap::download_image(&id_str).await;
+                    });
                 }
                 let coin_data = CoinData {
                     id: ele.id,

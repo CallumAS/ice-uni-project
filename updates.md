@@ -26,3 +26,5 @@ added image downloading as a function and added a static route to view images.
 Scheduled image downloads - Sat 18th Dec 15.30-16.10
 title probably should multi-thread/task this because its initially slow but im lazy
 and i can hide behind i don't want to DOS there S3.
+
+Got board of waiting sorry for the 5 seconds DOS
