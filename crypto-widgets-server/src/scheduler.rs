@@ -1,7 +1,9 @@
-use crate::coinmarketcap::{get_request, Root};
+use crate::coinmarketcap::{self, get_request, Root};
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
+use std::fs;
 use std::io::Write;
+use std::path::Path;
 use std::{collections::HashMap, fs::File, sync::Arc, time::Duration};
 use tokio::sync::Mutex as TokioMutex;
 #[derive(Serialize, Deserialize, Clone)]
@@ -44,6 +46,12 @@ pub async fn format(data: &Root) {
     for ele in &data.data.crypto_currency_list {
         for quotes in &ele.quotes {
             if quotes.name == "USD" {
+                let id_str = ele.id.to_string();
+                if fs::metadata(Path::new("./images/").join(format!("{}.png", id_str))).is_ok()
+                    == false
+                {
+                    let err = coinmarketcap::download_image(&id_str).await;
+                }
                 let coin_data = CoinData {
                     id: ele.id,
                     symbol: ele.symbol.clone(),
