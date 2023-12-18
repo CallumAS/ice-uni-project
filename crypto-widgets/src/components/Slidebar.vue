@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-<div :class="{ 'open': Open, 'sidebar': true}" class="overflow-hidden bg-gray-100">
+<div :class="{ 'open': Open, 'sidebar': true}" class="overflow-hidden bg-gray-100 sm:w-screen">
 <h1>Your code</h1>
 
 <div class="bg-gray-500 w-96 h-24 rounded-xl">
@@ -29,13 +29,29 @@ CODE
 
 <style scoped>
 .sidebar {
-    -webkit-transition: max-width 1s linear .5s;
-    max-width: 0px;
-    width: 100%;
+    -webkit-transition: max-width 1s ease-in-out;
+    max-width: 0;
+    width: 300vw;
 }
 
 .open {
-        max-width: 40%!important;
+    max-width: 300vw !important;
 }
+@media (max-width: 767px) {
+    .sidebar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        transition: right 1s ease-in-out;
+        right: -100%;
+    }
+
+    .open {
+        right: 0;
+    }
+}
+
 
 </style>

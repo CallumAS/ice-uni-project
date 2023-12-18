@@ -19,32 +19,34 @@ export default {
 </script>
 
 <template>
-  <div class="">
-    <div class="relative flex max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-        <img
+<div class="coin-card p-4 bg-white rounded-lg shadow-md">
+    <img
         :src="'http://localhost:8000/public/' + coinData.id + '.png'"
         :alt="coinData.symbol"
-        class="rounded-t"
-        />
-      <div class="p-6">
-        <h4 class="block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-          <p>{{ coinData.symbol }}</p>
+        class="rounded-t w-full h-36 object-cover"
+    />
+    <div class="flex flex-col justify-between p-4">
+        <h4 class="text-xl font-semibold text-blue-gray-900">
+            {{ coinData.symbol }}
         </h4>
-        <p class="mt-3 block font-sans font-normal leading-relaxed text-gray-700 antialiased">
-          {{ coinData.price }}
-        </p>
-      </div>
-      <div class="flex items-center justify-between p-6">
-        <p class="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-          {{ coinData.marketcap }}
-        </p>
-      </div>
+        <div class="flex flex-col mt-2">
+            <p class="text-gray-700">
+                Price: ${{ coinData.price.toFixed(2) }}
+            </p>
+            <p class="text-gray-700">
+                Market Cap: ${{ coinData.marketcap.toFixed(2) }}B
+            </p>
+        </div>
     </div>
-  </div>
+</div>
+
+
+
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+.coin-card {
+  width: 200px;
+  height: 300px; 
 }
 </style>

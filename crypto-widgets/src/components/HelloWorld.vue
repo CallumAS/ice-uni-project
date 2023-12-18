@@ -2,12 +2,17 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import Dropdown from './DropDown.vue';
 import Coin from './Coin.vue';
+import Slidebar from './Slidebar.vue'
+import draggable from "vuedraggable";
+
+const showResults = ref(false);
 
 const defaultBoxTheme = 'm-4 mt-0 ml-0 bg-gray-100 rounded p-2 col-span-3';
 const defaultHeaderTheme = 'text-gray-900 text-l font-semibold subpixel-antialiased font-mono';
 
 const data = ref({});
 const visibleCoins = ref([]);
+const selectedCoins = ref([]);
 const batchSize = 50;
 
 async function fetchData() {
@@ -51,12 +56,28 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="mx-auto grid max-w-4xl grid-cols-12 gap-4 bg-zinc-50 p-1">
+<div class="flex h-full">
+
+  <div class="w-full">
     <div id="selected" class="header col-span-12 rounded-lg border border-gray-300 bg-gray-600 py-8">
       <h1 :class="`${defaultHeaderTheme}`">Selected Coins</h1>
-      <button :class="`${defaultHeaderTheme} bg-gray-300 hover:bg-gray-400 rounded-xl p-2`">Create Widget</button>
+       <draggable
+        class="flex flex-wrap gap-2 justify-center items-center"
+        :list="selectedCoins"
+        group="people"
+        @change="log"
+        itemKey="id" 
+      >
+        <template #item="{ element, index }">
+          <div class="list-group-item">
+              <Coin :data="element" />
+              </div>
+        </template>
+      </draggable>
+
+      <button :class="`${defaultHeaderTheme} bg-gray-300 hover:bg-gray-400 rounded-xl p-2`" @click="showResults = !showResults">Create Widget</button>
     </div>
-    <div id="results" class="col-span-12 rounded-lg border border-gray-500 bg-gray-200 overflow-y-auto max-h-[400px]">
+    <div id="results" class="col-span-12 rounded-lg border border-gray-500 bg-gray-200 overflow-y-auto">
       <div id="filter">
         <h1 :class="`${defaultHeaderTheme}`">Search Coins</h1>
         <div class="flex">
@@ -65,15 +86,26 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <h1 :class="`${defaultHeaderTheme}`">Results</h1>
-      <div class="flex flex-wrap">
-        <Coin v-for="(coinData, key) in visibleCoins" :key="key" :data="coinData" />
-      </div>
+        <draggable
+  class="flex flex-wrap gap-2 justify-center items-center"
+  :list="visibleCoins"
+  group="people"
+  @change="log"
+  itemKey="id" 
+>
+  <template #item="{ element, index }">
+    <Coin :data="element" />
+  </template>
+</draggable>
+
     </div>
   </div>
+    <Slidebar :Open="showResults"/>
+</div>
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+.list-group {
+  
 }
 </style>

@@ -28,3 +28,6 @@ title probably should multi-thread/task this because its initially slow but im l
 and i can hide behind i don't want to DOS there S3.
 
 Got board of waiting sorry for the 5 seconds DOS
+
+Draggables & Redesign - Sat 18th Dec 19.30-20.10
+![Widget!](https://i.imgur.com/elaMMIi.png)
