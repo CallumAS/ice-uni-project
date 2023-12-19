@@ -31,3 +31,8 @@ Got board of waiting sorry for the 5 seconds DOS
 
 Draggables & Redesign - Sat 18th Dec 19.30-20.10
 ![Widget!](https://i.imgur.com/elaMMIi.png)
+
+
+UI/UX - Tue 19th Dec 10.00-12.00
+Fixing the selected items and binding the height of selected to the top padding
+of results. Why it means that when the height changes it can never overlap and cover coins. this was a bad session. very much dislike UI/UX

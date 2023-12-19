@@ -1,9 +1,12 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import {  watch, nextTick } from 'vue';
+
 import Dropdown from './DropDown.vue';
 import Coin from './Coin.vue';
 import Slidebar from './Slidebar.vue'
 import draggable from "vuedraggable";
+import Navbar from './Navbar.vue'
 
 const showResults = ref(false);
 
@@ -45,9 +48,26 @@ function handleScroll() {
   }
 }
 
+const resultsPadding = ref(0);
+
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   fetchData();
+  
+  //Very ugly fixed couldn't get watch working god knows why hopefully no one sees this
+  //https://i.imgur.com/foClXMw.jpeg  
+let selected = document.getElementById('selected');
+resultsPadding.value = selected.offsetHeight;
+let observer = new MutationObserver((mutationsList) => {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList' || mutation.type === 'attributes') {
+      resultsPadding.value = selected.offsetHeight;
+    }
+  }
+});
+observer.observe(selected, { childList: true, attributes: true, subtree: true });     
+
 });
 
 onBeforeUnmount(() => {
@@ -59,7 +79,8 @@ onBeforeUnmount(() => {
 <div class="flex h-full">
 
   <div class="w-full">
-    <div id="selected" class="header col-span-12 rounded-lg border border-gray-300 bg-gray-600 py-8">
+    <div id="selected" class="header col-span-12 rounded-lg border border-gray-300 bg-gray-600 fixed w-full">
+        <Navbar />
       <h1 :class="`${defaultHeaderTheme}`">Selected Coins</h1>
        <draggable
         class="flex flex-wrap gap-2 justify-center items-center"
@@ -77,7 +98,7 @@ onBeforeUnmount(() => {
 
       <button :class="`${defaultHeaderTheme} bg-gray-300 hover:bg-gray-400 rounded-xl p-2`" @click="showResults = !showResults">Create Widget</button>
     </div>
-    <div id="results" class="col-span-12 rounded-lg border border-gray-500 bg-gray-200 overflow-y-auto">
+    <div id="results" class="col-span-12 rounded-lg border border-gray-500 bg-gray-200 overflow-y-auto" :style="{ paddingTop: resultsPadding + 'px' }">
       <div id="filter">
         <h1 :class="`${defaultHeaderTheme}`">Search Coins</h1>
         <div class="flex">
