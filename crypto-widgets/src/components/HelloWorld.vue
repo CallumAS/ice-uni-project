@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
 <div class="flex h-full">
 
   <div class="w-full">
-    <div id="selected" class="header col-span-12 rounded-lg border border-gray-300 bg-gray-600 fixed w-full">
+    <div id="selected" class="fixed top-0 left-0 right-0 bg-gray-600 border border-gray-300 rounded-lg">
         <Navbar />
       <h1 :class="`${defaultHeaderTheme}`">Selected Coins</h1>
        <draggable
@@ -102,7 +102,6 @@ onBeforeUnmount(() => {
       <div id="filter">
         <h1 :class="`${defaultHeaderTheme}`">Search Coins</h1>
         <div class="flex">
-          <Dropdown :Selected="selected" :Items="[234, 266, 273]" />
           <input type="text" placeholder="coinname" />
         </div>
       </div>

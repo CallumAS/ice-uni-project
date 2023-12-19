@@ -1,0 +1,59 @@
+.coin-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+coins-widget {
+    display: inline-block;
+    width: max-content;
+}
+
+.coin-name {
+    font-size: 1.8em;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.coin-info {
+    width: 18rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.coin-logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.coin-price,
+.coin-marketcap {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    font-family: 'Roboto', sans-serif;
+}
+
+.coin-widget-title {
+    background: #663399;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+}

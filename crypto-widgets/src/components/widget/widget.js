@@ -87,4 +87,5 @@ class CoinsWidget extends HTMLElement {
 
 customElements.define("coin-info", CoinInfo);
 customElements.define("coins-widget", CoinsWidget);
+
 export default CoinsWidget;
