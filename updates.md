@@ -36,3 +36,8 @@ Draggables & Redesign - Sat 18th Dec 19.30-20.10
 UI/UX - Tue 19th Dec 10.00-12.00
 Fixing the selected items and binding the height of selected to the top padding
 of results. Why it means that when the height changes it can never overlap and cover coins. this was a bad session. very much dislike UI/UX
+
+
+Functionality Completed 20th Dec 14.00-15.30
+Pushed through the burn out and completed the functionality next step is Design
+plan to take it easy i want to get it looking professional but with the timeframes given i'd rather return to this and touch it up outside of study hours as i believe this project is already above standards set and should contribute to a decent grade i plan to give it a few hours of design and return to it at a later date. also im really sorry if anyone reads this feels like im going crazy.

@@ -1,16 +1,20 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 import Widget from './widget/widget.vue'
-defineProps({
-  Open: Boolean,
-  Selected: Array,
-})
+
+const props = defineProps(['Open', 'Selected', 'CoinsData']);
+
+const CoinsData = ref(props.CoinsData);
+watchEffect(() => {
+  CoinsData.value = props.CoinsData;
+});
 </script>
 
 <template>
 <div :class="{ 'open': Open, 'sidebar': true}" class="overflow-hidden bg-gray-100 sm:w-screen h-full fixed">
 <button @click="Open = !Open">CLOSE</button>
 <h1>Your code</h1>
+<h1>hi {{CoinsData}}</h1>
 
 <div class="bg-gray-500 w-96 h-24 rounded-xl">
 OPTIONS
@@ -25,7 +29,7 @@ EXAMPLE
 <div class="bg-gray-500 w-96 h-24 rounded-xl">
 CODE
 </div>
-<Widget/>
+<Widget :CoinsData="CoinsData"/>
 
 </div>
 </template>

@@ -1,10 +1,18 @@
 <script setup>
 import { ref, onMounted, watchEffect, onBeforeUnmount } from 'vue';
 import Coin from '../Coin.vue';
-const coins = ref("Bitcoin,Kaspa");
+const props = defineProps(['Open', 'Selected', 'CoinsData']);
+
+const coins = ref(props.CoinsData);
+
+watchEffect(() => {
+  coins.value = props.CoinsData;
+});
+
 const coinsList = ref([]);
 const evtSource = ref(null);
 
+console.log(coins);
 const setupEventSource = () => {
   const baseURL = "http://localhost:8000";
   evtSource.value = new EventSource(`${baseURL}/sse/?symbols=${coins.value}`);
@@ -14,8 +22,9 @@ const setupEventSource = () => {
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        const existingCoinIndex = coinsList.value.findIndex((coin) => coin.id === key);
+        const existingCoinIndex = coinsList.value.findIndex((coin) => coin.name === key);
 
+        data[key].name = key;
         if (existingCoinIndex !== -1) {
           coinsList.value[existingCoinIndex] = data[key];
         } else {

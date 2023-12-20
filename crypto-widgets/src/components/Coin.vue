@@ -28,7 +28,7 @@ export default {
     />
     <div class="flex flex-col justify-between p-4">
       <h4 class="text-xl font-semibold text-blue-gray-900">
-        {{ coinData.symbol }}
+        {{ coinData.name }}
       </h4>
       <div class="flex flex-col mt-2">
         <p class="text-gray-700">

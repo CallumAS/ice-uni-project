@@ -7,11 +7,14 @@ import Coin from './Coin.vue';
 import Slidebar from './Slidebar.vue'
 import draggable from "vuedraggable";
 import Navbar from './Navbar.vue'
+import { computed } from 'vue';
 
 const showResults = ref(false);
 
 const defaultBoxTheme = 'm-4 mt-0 ml-0 bg-gray-100 rounded p-2 col-span-3';
 const defaultHeaderTheme = 'text-gray-900 text-l font-semibold subpixel-antialiased font-mono';
+const selectedCoinsNames = computed(() => selectedCoins.value.map(x => x.name).join(','));
+
 
 const data = ref({});
 const visibleCoins = ref([]);
@@ -77,16 +80,15 @@ onBeforeUnmount(() => {
 
 <template>
 <div class="flex h-full">
-
   <div class="w-full">
     <div id="selected" class="fixed top-0 left-0 right-0 bg-gray-600 border border-gray-300 rounded-lg">
+<h1>selected {{selectedCoinsNames}}</h1>
         <Navbar />
       <h1 :class="`${defaultHeaderTheme}`">Selected Coins</h1>
        <draggable
         class="flex flex-wrap gap-2 justify-center items-center"
         :list="selectedCoins"
         group="people"
-        @change="log"
         itemKey="id" 
       >
         <template #item="{ element, index }">
@@ -110,7 +112,6 @@ onBeforeUnmount(() => {
   class="flex flex-wrap gap-2 justify-center items-center"
   :list="visibleCoins"
   group="people"
-  @change="log"
   itemKey="id" 
 >
   <template #item="{ element, index }">
@@ -120,7 +121,7 @@ onBeforeUnmount(() => {
 
     </div>
   </div>
-    <Slidebar :Open="showResults"/>
+    <Slidebar :Open="showResults" :CoinsData="selectedCoinsNames"/>
 </div>
 </template>
 
