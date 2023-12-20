@@ -12,7 +12,7 @@ Finish Time        - N/A(trying to speed run)
 --------------------------------------------------------
 Tasks -
 1. Scrape Data from coinmarketcap or coingecko -DONE
-2. Download Images
-3. Periodically Scrape Data and download images that don't exist -PARTIAL
+2. Download Images -DONE
+3. Periodically Scrape Data and download images that don't exist -DONE
 4. design website that lists coins and lets users drag selected coins into a zone to build there html component -PARTIAL
-5. create html component to be injected on users pages -PARTIAL
+5. create html component to be injected on users pages -DONE
