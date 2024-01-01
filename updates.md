@@ -1,3 +1,5 @@
+[Project](#project) | [References](references.md) | [Timeline](updates.md)
+
 ### Project Timeline
 
 #### Sat 16 Dec
