@@ -33,3 +33,12 @@ i did have experience with the relevant APIs and understanding the required cont
 2. Craft CSS ✅
 3. Display Selected Coins ✅
 4. Update Selected coins OnChange ✅
+
+
+   
+---
+
+# Control Flow
+
+  ![Control Flow!](https://i.imgur.com/9FSwJ9e.png)
+
