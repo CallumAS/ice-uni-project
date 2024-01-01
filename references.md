@@ -1,3 +1,5 @@
+[Project](#project) | [References](references.md) | [Timeline](updates.md)
+
 # References
 
 A list of useful resources, links, and solutions utilized in the project. While the links provided are crucial i am missing some tutorials, stackoverflows and libraries that helped in the project but does not standout in the development of the project as a whole i have included stackoverflows that solvd crutial bugs.  
