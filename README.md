@@ -1,3 +1,5 @@
+[Project](#project) | [References](references.md) | [Timeline](updates.md)
+
 # Project
 For course context i decided on developing a web application using an unfamiliar stack. I liked this idea and explored a simplistic version using a different language 8 months ago and i did want to make a more professional level application for my portfolio.
 
