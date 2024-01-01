@@ -1,4 +1,4 @@
-[Project](#project) | [References](references.md) | [Timeline](updates.md)
+[Project](README.md) | [References](references.md) | [Timeline](updates.md)
 
 ### Project Timeline
 
