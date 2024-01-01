@@ -1,18 +1,35 @@
-# ice-uni-project
+# Project
+For course context i decided on developing a web application using an unfamiliar stack. I liked this idea and explored a simplistic version using a different language 8 months ago and i did want to make a more professional level application for my portfolio.
 
-Selected the project idea, language and framework using random wheel so its not my normal stack or a stack im used too.
+i did have experience with the relevant APIs and understanding the required control flow for the project however i thought this was fair since I consciously decided to avoid languages, frameworks and technologies I was well acquainted with to introducing me to knew challenges.
 
-This project i have done before however it was 7 months ago and i did it while exploring different stacks so i kind of know what to do but not in the language; the framework is the same but vue is not my main framework i much prefer svelte so even though there is a lot of similarities i intend to do it from scratch and use a different backend language
+# Stack
+- Project: Crypto Ticker Widget
+- Language: Rust
+- Frontend Framework: VUE3
+- Start Time: Sat 16 Dec
+- Finish Time: N/A
 
-project            - crypto widgets 
-language           - rust
-frontend framework - vue
-Start Time         - Sat 16 Dec
-Finish Time        - N/A(trying to speed run)
---------------------------------------------------------
-Tasks -
-1. Scrape Data from coinmarketcap or coingecko -DONE
-2. Download Images -DONE
-3. Periodically Scrape Data and download images that don't exist -DONE
-4. design website that lists coins and lets users drag selected coins into a zone to build there html component -PARTIAL
-5. create html component to be injected on users pages -DONE
+---
+
+# Tasks
+
+## Website Frontend
+1. Display All Coins ✅
+2. Allow user Coin Selection ✅
+3. Implement a button to Generate code & instructions for widget inclusion on 3rd party websites ✅
+
+## Backend Server
+1. Scrape Coin data from CMC (coinmarketcap.com) ✅
+2. Download Images from CMC ✅
+3. Periodically update data ✅
+4. Create Web Server ✅
+5. Include Endpoint to list coins ✅
+6. Include Endpoint to get image ✅
+7. Establish SSE (Server Side Event) Endpoint ✅
+
+## HTML ELEMENT / Widget
+1. Connect to SSE ✅
+2. Craft CSS ✅
+3. Display Selected Coins ✅
+4. Update Selected coins OnChange ✅
