@@ -45,3 +45,7 @@
   - Next step: Design.
   - Planning to take it easy, aiming for a professional look within the given timeframes.
   - Will revisit for design refinement outside study hours.
+
+#### Mon 1st Jan
+- **21:00 - 21:50**
+  - Cleaned up documentation
