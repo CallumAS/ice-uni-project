@@ -10,6 +10,7 @@ export default {
     const coinData = ref(props.data);
 
     onMounted(() => {
+      // You can add any additional setup logic here
     });
 
     return {
@@ -27,16 +28,10 @@ export default {
       class="rounded-t w-full h-36 object-cover"
     />
     <div class="flex flex-col justify-between p-4">
-      <h4 class="text-xl font-semibold text-blue-gray-900">
-        {{ coinData.name }}
-      </h4>
+      <h4 class="text-xl font-semibold text-blue-gray-900 overflow-hidden overflow-ellipsis">{{ coinData.name }}</h4>
       <div class="flex flex-col mt-2">
-        <p class="text-gray-700">
-          Price: ${{ coinData.price.toFixed(2) }}
-        </p>
-        <p class="text-gray-700">
-          Market Cap: ${{ coinData.marketcap.toFixed(2) }}B
-        </p>
+        <p class="text-gray-700 overflow-hidden overflow-ellipsis">Price: ${{ coinData.price.toFixed(2) }}</p>
+        <p class="text-gray-700 overflow-hidden overflow-ellipsis">MCap: ${{ coinData.marketcap.toFixed(2) }}B</p>
       </div>
     </div>
   </div>
@@ -46,5 +41,14 @@ export default {
 .coin-card {
   width: 200px;
   height: 300px;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+/* Add ellipsis for text overflow */
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

@@ -29,7 +29,22 @@ async function fetchData() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    data.value = await response.json();
+
+let r = await response.json();
+
+const coinArray = Object.entries(r);
+
+coinArray.sort(([, valueA], [, valueB]) => {
+    const cmcA = Number(valueA.cmc) || 0; // Convert to number or default to 0
+    const cmcB = Number(valueB.cmc) || 0; // Convert to number or default to 0
+    return cmcA - cmcB;
+});
+
+// Convert back to object
+r = Object.fromEntries(coinArray);
+
+data.value = r;
+  
     updateVisibleCoins();
 
   } catch (error) {
@@ -81,10 +96,13 @@ onBeforeUnmount(() => {
 <template>
 <div class="flex h-full">
   <div class="w-full">
-    <div id="selected" class="fixed top-0 left-0 right-0 bg-gray-600 border border-gray-300 rounded-lg">
-<h1>selected {{selectedCoinsNames}}</h1>
+    <div id="selected" class="fixed top-0 left-0 right-0 bg-gray-100 border border-gray-300 rounded-lg">
         <Navbar />
       <h1 :class="`${defaultHeaderTheme}`">Selected Coins</h1>
+      <div v-if="selectedCoins.length === 0">
+      <h1>Drag a coin here</h1>
+    </div>
+    
        <draggable
         class="flex flex-wrap gap-2 justify-center items-center"
         :list="selectedCoins"
@@ -98,15 +116,9 @@ onBeforeUnmount(() => {
         </template>
       </draggable>
 
-      <button :class="`${defaultHeaderTheme} bg-gray-300 hover:bg-gray-400 rounded-xl p-2`" @click="showResults = !showResults">Create Widget</button>
+      <button v-if="selectedCoins.length > 0" :class="`${defaultHeaderTheme} bg-gray-300 hover:bg-gray-400 rounded-xl p-2 m-2`" @click="showResults = !showResults">Create Widget</button>
     </div>
     <div id="results" class="col-span-12 rounded-lg border border-gray-500 bg-gray-200 overflow-y-auto" :style="{ paddingTop: resultsPadding + 'px' }">
-      <div id="filter">
-        <h1 :class="`${defaultHeaderTheme}`">Search Coins</h1>
-        <div class="flex">
-          <input type="text" placeholder="coinname" />
-        </div>
-      </div>
       <h1 :class="`${defaultHeaderTheme}`">Results</h1>
         <draggable
   class="flex flex-wrap gap-2 justify-center items-center"

@@ -38,7 +38,7 @@ class CoinInfo extends HTMLElement {
 class CoinsWidget extends HTMLElement {
     constructor() {
         super();
-        this.coins = "Bitcoin,Kaspa";
+        this.coins = this.getAttribute("coins") || "";
         this.results = new Map();
 
         this.headerTitle = document.createElement("h1");
@@ -74,6 +74,7 @@ class CoinsWidget extends HTMLElement {
         };
     }
 
+
     connectedCallback() {
         this.coins = localStorage.getItem("coins");
         // this.fetchData();
@@ -87,4 +88,3 @@ class CoinsWidget extends HTMLElement {
 
 customElements.define("coin-info", CoinInfo);
 customElements.define("coins-widget", CoinsWidget);
-export default CoinsWidget;

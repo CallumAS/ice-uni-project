@@ -10,6 +10,7 @@ use tokio::task;
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CoinData {
     pub id: i64,
+    pub cmc: i64,
     pub name: String,
     pub symbol: String,
     pub price: f64,
@@ -58,6 +59,7 @@ pub async fn format(data: &Root) {
                 }
                 let coin_data = CoinData {
                     id: ele.id,
+                    cmc: ele.cmc_rank,
                     name: ele.name.clone(),
                     symbol: ele.symbol.clone(),
                     price: quotes.price,

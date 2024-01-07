@@ -51,3 +51,9 @@
 #### Mon 1st Jan
 - **21:00 - 21:50**
   - Cleaned up documentation
+
+
+#### Mon 7th Jan
+- **1.55 - 11.00**
+  - Finalised Designed
+  - Deployed it

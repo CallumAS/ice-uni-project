@@ -24,21 +24,48 @@ coins-widget {
 }
 
 .coin-info {
-    width: 18rem;
+    width: 300px;
+    height: 300px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 15px;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .coin-logo {
-    max-width: 100%;
-    height: auto;
-    display: block;
+    width: 80px;
+    /* Set your desired width */
+    height: 80px;
+    /* Set your desired height */
+    object-fit: contain;
+    /* Maintain aspect ratio */
     margin-bottom: 10px;
 }
+
+.coin-price,
+.coin-marketcap {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    font-family: 'Roboto', sans-serif;
+}
+
+.coin-widget-title {
+    background: #663399;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    font-size: 1.2em;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
 
 .coin-price,
 .coin-marketcap {

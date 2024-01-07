@@ -58,7 +58,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <h1 class="coin-widget-title">Coin Ticker</h1>
     <div class="coin-container flex gap-2">
       <Coin v-for="coin in coinsList" :key="coin.id" :data="coin" />
     </div>

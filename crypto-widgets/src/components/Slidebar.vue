@@ -4,6 +4,8 @@ import Widget from './widget/widget.vue'
 
 const props = defineProps(['Open', 'Selected', 'CoinsData']);
 
+const domain = "http://127.0.0.1:8000/"
+
 const CoinsData = ref(props.CoinsData);
 watchEffect(() => {
   CoinsData.value = props.CoinsData;
@@ -12,24 +14,23 @@ watchEffect(() => {
 
 <template>
 <div :class="{ 'open': Open, 'sidebar': true}" class="overflow-hidden bg-gray-100 sm:w-screen h-full fixed">
-<button @click="Open = !Open">CLOSE</button>
-<h1>Your code</h1>
-<h1>hi {{CoinsData}}</h1>
+<button @click="Open = !Open">Close</button>
 
-<div class="bg-gray-500 w-96 h-24 rounded-xl">
-OPTIONS
-<input type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:85%;">
-<input type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:85%;">
-<input type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:85%;">
-</div>
-<div class="bg-gray-500 w-96 h-24 rounded-xl">
-EXAMPLE
-</div>
-
-<div class="bg-gray-500 w-96 h-24 rounded-xl">
-CODE
-</div>
+<div class="p-2 rounded-xl">
 <Widget :CoinsData="CoinsData"/>
+</div>
+<div class="bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-2xl font-bold mb-4">Widget</h1>
+    <p class="text-black bg-gray-100 leading-relaxed rounded-md p-2">{{ `<coins-widget coins="${CoinsData}"></coins-widget>` }}</p>
+
+    <h1 class="text-2xl font-bold mt-8 mb-4">Style</h1>
+    <p class="text-black bg-gray-100 leading-relaxed rounded-md p-2">{{ '<link rel="stylesheet" href="'+domain+'/style.css">' }}</p>
+
+    <h1 class="text-2xl font-bold mt-8 mb-4">Javascript</h1>
+    <p class="text-black bg-gray-100 leading-relaxed rounded-md p-2">{{ '<script type="text/javascript" src="'+domain+'/script.js"></script>' }}</p>
+</div>
+
+
 
 </div>
 </template>

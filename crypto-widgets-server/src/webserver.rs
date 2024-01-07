@@ -36,12 +36,6 @@ impl Fairing for CORS {
     }
 }
 
-// Image Proxy
-#[get("/<coin>/<size>")]
-fn GetImage(coin: &str, size: u8) -> String {
-    format!("👋 Hello, {} year old named {}!", coin, size)
-}
-
 #[get("/?<opt..>")]
 async fn list_coins(opt: Options<'_>) -> Json<HashMap<String, scheduler::CoinData>> {
     let mut new_array_symbols: Vec<String> = Vec::new();
